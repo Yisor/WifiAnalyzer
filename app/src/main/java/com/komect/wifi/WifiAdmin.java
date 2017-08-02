@@ -40,9 +40,11 @@ public class WifiAdmin {
     public void openWifi(Context context) {
         if (!mWifiManager.isWifiEnabled()) {
             mWifiManager.setWifiEnabled(true);
-        } else if (mWifiManager.getWifiState() == 2) {
+        }
+        else if (mWifiManager.getWifiState() == 2) {
             Toast.makeText(context, "Wifi正在开启，不用再开了", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else {
             Toast.makeText(context, "Wifi已经开启,不用再开了", Toast.LENGTH_SHORT).show();
         }
     }
@@ -52,11 +54,14 @@ public class WifiAdmin {
     public void closeWifi(Context context) {
         if (mWifiManager.isWifiEnabled()) {
             mWifiManager.setWifiEnabled(false);
-        } else if (mWifiManager.getWifiState() == 1) {
+        }
+        else if (mWifiManager.getWifiState() == 1) {
             Toast.makeText(context, "Wifi已经关闭，不用再关了", Toast.LENGTH_SHORT).show();
-        } else if (mWifiManager.getWifiState() == 0) {
+        }
+        else if (mWifiManager.getWifiState() == 0) {
             Toast.makeText(context, "Wifi正在关闭，不用再关了", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else {
             Toast.makeText(context, "请重新关闭", Toast.LENGTH_SHORT).show();
         }
     }
@@ -66,13 +71,17 @@ public class WifiAdmin {
     public void checkState(Context context) {
         if (mWifiManager.getWifiState() == 0) {
             Toast.makeText(context, "Wifi正在关闭", Toast.LENGTH_SHORT).show();
-        } else if (mWifiManager.getWifiState() == 1) {
+        }
+        else if (mWifiManager.getWifiState() == 1) {
             Toast.makeText(context, "Wifi已经关闭", Toast.LENGTH_SHORT).show();
-        } else if (mWifiManager.getWifiState() == 2) {
+        }
+        else if (mWifiManager.getWifiState() == 2) {
             Toast.makeText(context, "Wifi正在开启", Toast.LENGTH_SHORT).show();
-        } else if (mWifiManager.getWifiState() == 3) {
+        }
+        else if (mWifiManager.getWifiState() == 3) {
             Toast.makeText(context, "Wifi已经开启", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else {
             Toast.makeText(context, "没有获取到WiFi状态", Toast.LENGTH_SHORT).show();
         }
     }
@@ -145,9 +154,11 @@ public class WifiAdmin {
         if (mWifiList == null) {
             if (mWifiManager.getWifiState() == 3) {
                 Toast.makeText(context, "当前区域没有无线网络", Toast.LENGTH_SHORT).show();
-            } else if (mWifiManager.getWifiState() == 2) {
+            }
+            else if (mWifiManager.getWifiState() == 2) {
                 Toast.makeText(context, "wifi正在开启，请稍后扫描", Toast.LENGTH_SHORT).show();
-            } else {
+            }
+            else {
                 Toast.makeText(context, "WiFi没有开启", Toast.LENGTH_SHORT).show();
             }
         }
@@ -174,6 +185,22 @@ public class WifiAdmin {
             }
         }
         return list;
+    }
+
+
+    /**
+     * 判断wifi是否为2.4G
+     */
+    public static boolean is24GHz(int freq) {
+        return freq > 2400 && freq < 2500;
+    }
+
+
+    /**
+     * 判断wifi是否为5G
+     */
+    public static boolean is5GHz(int freq) {
+        return freq > 4900 && freq < 5900;
     }
 
 
@@ -216,6 +243,17 @@ public class WifiAdmin {
     }
 
 
+    // 得到连接的SSID
+    public String getSSID() {
+        return (mWifiInfo == null) ? "unknown ssid" : mWifiInfo.getSSID();
+    }
+
+
+    public int getLinkSpeed() {
+        return (mWifiInfo == null) ? 0 : mWifiInfo.getLinkSpeed();
+    }
+
+
     // 得到WifiInfo的所有信息包
     public String getWifiInfo() {
         return (mWifiInfo == null) ? "NULL" : mWifiInfo.toString();
@@ -241,57 +279,6 @@ public class WifiAdmin {
     public void removeWifi(int netId) {
         disconnectWifi(netId);
         mWifiManager.removeNetwork(netId);
-    }
-
-    //然后是一个实际应用方法，只验证过没有密码的情况：
-
-
-    public WifiConfiguration CreateWifiInfo(String SSID, String Password, int Type) {
-        WifiConfiguration config = new WifiConfiguration();
-        config.allowedAuthAlgorithms.clear();
-        config.allowedGroupCiphers.clear();
-        config.allowedKeyManagement.clear();
-        config.allowedPairwiseCiphers.clear();
-        config.allowedProtocols.clear();
-        config.SSID = "\"" + SSID + "\"";
-
-        WifiConfiguration tempConfig = this.IsExsits(SSID);
-        if (tempConfig != null) {
-            mWifiManager.removeNetwork(tempConfig.networkId);
-        }
-
-        if (Type == 1) //WIFICIPHER_NOPASS
-        {
-            config.wepKeys[0] = "";
-            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-            config.wepTxKeyIndex = 0;
-        }
-        if (Type == 2) //WIFICIPHER_WEP
-        {
-            config.hiddenSSID = true;
-            config.wepKeys[0] = "\"" + Password + "\"";
-            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
-            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-            config.wepTxKeyIndex = 0;
-        }
-        if (Type == 3) //WIFICIPHER_WPA
-        {
-            config.preSharedKey = "\"" + Password + "\"";
-            config.hiddenSSID = true;
-            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
-            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-            //config.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-            config.status = WifiConfiguration.Status.ENABLED;
-        }
-        return config;
     }
 
 
