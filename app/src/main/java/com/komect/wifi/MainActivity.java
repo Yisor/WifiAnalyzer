@@ -38,7 +38,8 @@ public class MainActivity extends CheckPermissionsActivity
 
     private ConnectionClassManager mConnectionClassManager;
     private DeviceBandwidthSampler mDeviceBandwidthSampler;
-    private static final String mURL = "http://image.elegantliving.ceconline.com/320000/320100/20110815_03_52.jpg";
+    //private static final String mURL = "http://image.elegantliving.ceconline.com/320000/320100/20110815_03_52.jpg";
+    private static final String mURL = "http://xy3.gph.netease.com/patch3.0.492.xy3";
 
     private int mTries = 0;
     private ConnectionQuality mConnectionClass = ConnectionQuality.UNKNOWN;
