@@ -1,16 +1,21 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.komect.wifi"
+        applicationId "com.komect.netword"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,6 +32,10 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    compile project(':network-connection-class')
+    apt 'com.google.dagger:dagger-compiler:2.2'
+    compile 'com.google.dagger:dagger:2.2'
 
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    compile project(':network-connection-class')
 }

@@ -1,4 +1,4 @@
-package com.komect.wifi;
+package com.komect.network;
 
 import android.net.wifi.ScanResult;
 import android.os.AsyncTask;
@@ -76,7 +76,7 @@ public class MainActivity extends CheckPermissionsActivity
         mWifiAdmin = new WifiAdmin(MainActivity.this);
         currentSsid.setText(mWifiAdmin.getSSID());
         linkSpeed.setText(String.format("连接速度：%dMbps", mWifiAdmin.getLinkSpeed()));
-        currentChannel.setText(String.format("信道：%d", WifiUtil.getCurrentChannel(this)));
+        currentChannel.setText(String.format("信道：%d", mWifiAdmin.getCurrentChannel(this)));
 
         // 定时任务
         ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);

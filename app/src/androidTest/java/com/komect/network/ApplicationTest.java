@@ -1,4 +1,4 @@
-package com.komect.wifi;
+package com.komect.network;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

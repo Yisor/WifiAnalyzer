@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.komect.wifi;
+package com.komect.network;
 
 import android.Manifest;
 import android.app.AlertDialog;

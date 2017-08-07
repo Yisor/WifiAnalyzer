@@ -1,4 +1,4 @@
-package com.komect.wifi;
+package com.komect.network;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.komect.wifi.WifiUtil.getChannelByFrequency;
+import static com.komect.network.WifiAdmin.getChannelByFrequency;
 
 /**
  * Created by lsl on 2017/8/2.
