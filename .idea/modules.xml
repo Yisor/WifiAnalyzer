@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WifiAnalyzer.iml" filepath="$PROJECT_DIR$/WifiAnalyzer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/network-connection-class/network-connection-class.iml" filepath="$PROJECT_DIR$/network-connection-class/network-connection-class.iml" />
     </modules>
   </component>
 </project>
